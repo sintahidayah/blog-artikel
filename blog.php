@@ -38,24 +38,33 @@ $result = $conn->query($sql);
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #f3e9fc;
+      background-color:rgb(40, 72, 52);
     }
     .navbar {
-      background-color: #6f42c1;
+      background-color:rgb(230, 240, 239);
     }
     .navbar-brand, .nav-link {
-      color: white !important;
+      color: grey !important;
       font-weight: 500;
     }
     .navbar-brand {
       font-weight: 700;
     }
     .blog-header {
-      background: linear-gradient(to right, #9f5de2, #7f37c9);
+      background: linear-gradient(to right,rgb(93, 171, 226),rgb(216, 214, 218));
+      background-image: url(../img/bg3.jpg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       color: white;
       padding: 3rem 0;
+      display: inline-flex;
       text-align: center;
-      margin-bottom: 40px;
+      align-items: center;
+      justify-content: center;
+      height: 400px; /* Atur tinggi sesuai kebutuhan */
+      width: 100%;
+      margin-bottom: 100px;
     }
     .blog-card {
       background: white;
@@ -99,7 +108,7 @@ $result = $conn->query($sql);
     .read-more {
       font-size: 0.9rem;
       text-decoration: none;
-      color: #7f37c9;
+      color:rgb(0, 64, 133);
       font-weight: 500;
     }
     .sidebar-box {
@@ -109,8 +118,8 @@ $result = $conn->query($sql);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
     }
     footer {
-      background-color: #6f42c1;
-      color: white;
+      background-color:rgb(230, 240, 239);
+      color: grey;
       text-align: center;
       padding: 15px;
       margin-top: 60px;
@@ -137,7 +146,7 @@ $result = $conn->query($sql);
       }
 
       .navbar-nav .nav-link {
-        color: #6f42c1 !important;
+        color: rgb(230, 240, 239)!important;
         padding: 8px 0;
         font-weight: 500;
         white-space: nowrap;
@@ -171,7 +180,9 @@ $result = $conn->query($sql);
 <!-- HEADER -->
 <div class="blog-header">
   <h1>Selamat Datang di Tata's Artikel</h1>
-  <p class="lead">Temukan inspirasi dan wawasan baru di sini!</p>
+  <p>Temukan inspirasi dan wawasan baru di sini!</p>
+</div>
+
 </div>
 
 <!-- KONTEN -->

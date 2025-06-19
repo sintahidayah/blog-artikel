@@ -23,7 +23,7 @@ $sql = "
 ";
 $articles = $conn->query($sql);
 
-$search = $_GET['search'] ?? ''; // Untuk sidebar input pencarian
+$search = $_GET['search'] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -33,23 +33,36 @@ $search = $_GET['search'] ?? ''; // Untuk sidebar input pencarian
   <title><?= htmlspecialchars($category_name) ?> - Tata's Artikel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #f3e9fc;
+      background-color: rgb(40, 72, 52);
     }
     .navbar {
-      background-color: #6f42c1;
+      background-color: rgb(230, 240, 239);
     }
     .navbar-brand, .nav-link {
-      color: white !important;
+      color: grey !important;
+      font-weight: 500;
+    }
+    .navbar-brand {
+      font-weight: 700;
     }
     .blog-header {
-      background: linear-gradient(to right, #9f5de2, #7f37c9);
+      background: linear-gradient(to right,rgb(93, 171, 226),rgb(216, 214, 218));
+      background-image: url(../img/bg3.jpg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       color: white;
       padding: 3rem 0;
-      text-align: center;
-      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 400px;
+      width: 100%;
+      margin-bottom: 60px;
     }
     .content-container {
       padding: 40px 0;
@@ -57,29 +70,45 @@ $search = $_GET['search'] ?? ''; // Untuk sidebar input pencarian
     .article-card {
       background: white;
       padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-      margin-bottom: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+      margin-bottom: 30px;
+      transition: 0.3s;
+    }
+    .article-card:hover {
+      transform: translateY(-6px);
     }
     .article-card img {
       width: 100%;
       height: 220px;
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: 10px;
       margin-bottom: 10px;
     }
     .article-title {
       font-size: 1.25rem;
-      font-weight: bold;
+      font-weight: 600;
     }
     .article-meta {
       font-size: 0.9rem;
       color: #777;
       margin-bottom: 10px;
     }
+    .read-more {
+      font-size: 0.9rem;
+      text-decoration: none;
+      color: rgb(0, 64, 133);
+      font-weight: 500;
+    }
+    .sidebar-box {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+    }
     footer {
-      background-color: #6f42c1;
-      color: white;
+      background-color: rgb(230, 240, 239);
+      color: grey;
       text-align: center;
       padding: 15px;
       margin-top: 60px;
@@ -95,25 +124,16 @@ $search = $_GET['search'] ?? ''; // Untuk sidebar input pencarian
         margin-top: 10px;
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         width: auto;
-        min-width: 160px;
-        max-width: max-content;
         z-index: 999;
       }
-
       .navbar-nav {
         flex-direction: column;
         text-align: left;
       }
-
       .navbar-nav .nav-link {
-        color: #6f42c1 !important;
+        color: grey !important;
         padding: 8px 0;
         font-weight: 500;
-        white-space: nowrap;
-      }
-
-      .navbar-toggler-icon {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,1%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
       }
     }
   </style>
@@ -139,15 +159,15 @@ $search = $_GET['search'] ?? ''; // Untuk sidebar input pencarian
 
 <!-- HEADER -->
 <div class="blog-header">
-  <h1>Selamat Datang di Tata's Artikel</h1>
-  <p class="lead">Temukan inspirasi dan wawasan baru di sini!</p>
+  <div class="container text-center">
+    <h1 class="fw-bold mb-2"><?= htmlspecialchars($category_name) ?></h1>
+    <p class="lead">Kategori Artikel: <?= htmlspecialchars($category_name) ?> di Tata's Artikel</p>
+  </div>
 </div>
 
 <!-- KONTEN -->
 <div class="container content-container">
-  <h2 class="mb-4"><strong>Kategori: <?= htmlspecialchars($category_name) ?></strong></h2>
   <div class="row">
-    
     <!-- KONTEN ARTIKEL -->
     <div class="col-lg-8">
       <?php if ($articles->num_rows > 0): ?>
@@ -164,7 +184,7 @@ $search = $_GET['search'] ?? ''; // Untuk sidebar input pencarian
                   </a>
                 </div>
                 <div class="article-meta">
-                  <?= date('d M Y, H:i', strtotime($row['datetime'])) ?> • <?= htmlspecialchars($row['author_name']) ?>
+                  <?= date('d M Y, H:i', strtotime($row['date'])) ?> • <?= htmlspecialchars($row['author_name']) ?>
                 </div>
                 <p><?= substr(strip_tags($row['content']), 0, 100) ?>...</p>
                 <a href="artikel-detail.php?id=<?= $row['id'] ?>" class="read-more">→ Baca Selengkapnya</a>
@@ -176,13 +196,12 @@ $search = $_GET['search'] ?? ''; // Untuk sidebar input pencarian
         <div class="alert alert-warning">Belum ada artikel pada kategori ini.</div>
       <?php endif; ?>
 
-      <a href="blog.php" class="btn btn-outline-secondary mt-4 mb-5">&larr; Kembali ke Blog</a>
+      <a href="blog.php" class="btn btn-outline-light mt-4">&larr; Kembali ke Beranda</a>
     </div>
 
     <!-- SIDEBAR -->
     <div class="col-lg-4">
-      <div class="p-3 bg-white border rounded shadow-sm">
-        
+      <div class="sidebar-box">
         <!-- Form Pencarian -->
         <form action="blog.php" method="get" class="mb-3">
           <input type="text" name="search" class="form-control" placeholder="🔍 Cari artikel..." value="<?= htmlspecialchars($search) ?>">
@@ -204,40 +223,29 @@ $search = $_GET['search'] ?? ''; // Untuk sidebar input pencarian
         </ul>
 
         <!-- Tentang -->
-        <h5 class="fw-bold mb-2 mt-4" id="tentang">Tentang</h5>
-        <p>Tata's Artikel adalah blog yang menyajikan informasi dan cerita menarik seputar gunung-gunung di Indonesia. 
-          Mulai dari keindahan alam, status konservasi, hingga nilai budaya dan sejarahnya, semua dikemas untuk menambah wawasan 
-          dan kecintaan terhadap kekayaan alam nusantara.</p>
+        <h5 class="fw-bold mb-3 mt-4" id="tentang">Tentang</h5>
+        <p class="text-muted">Tata's Artikel menyajikan kisah dan informasi seputar gunung-gunung Indonesia, budaya, konservasi, dan petualangan alam yang menginspirasi.</p>
       </div>
     </div>
+  </div>
 
-    <!-- KONTAK -->
-    <div class="container-fluid py-5" id="kontak">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 mx-auto">
-            <div class="sidebar-box text-center p-4 bg-white rounded shadow">
-              <h4 class="fw-bold mb-3">Hubungi Kami</h4>
-              <p>Jika Anda memiliki pertanyaan, saran, atau ingin berkolaborasi, jangan ragu untuk menghubungi kami melalui:</p>
-              <p class="mb-1">
-                <strong>Email:</strong>
-                <a href="mailto:sintahidayahsnh@gmail.com" class="text-primary text-decoration-underline">sintahidayahsnh@gmail.com</a>
-              </p>
-              <p class="mb-1">
-                <strong>Instagram:</strong>
-                <a href="https://instagram.com/sintanrhdy" target="_blank" class="text-primary text-decoration-underline">@sintanrhdy</a>
-              </p>
-              <p>
-                <strong>Twitter:</strong>
-                <a href="https://twitter.com/flowriseay" target="_blank" class="text-primary text-decoration-underline">@flowriseay</a>
-              </p>
-            </div>
+  <!-- KONTAK -->
+  <div class="container-fluid py-5" id="kontak">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="sidebar-box text-center p-4 bg-white rounded shadow">
+            <h4 class="fw-bold mb-3">Hubungi Kami</h4>
+            <p>Untuk pertanyaan, kolaborasi, atau saran, silakan hubungi kami:</p>
+            <p><strong>Email:</strong> <a href="mailto:sintahidayahsnh@gmail.com" class="text-primary text-decoration-underline">sintahidayahsnh@gmail.com</a></p>
+            <p><strong>Instagram:</strong> <a href="https://instagram.com/sintanrhdy" target="_blank" class="text-primary text-decoration-underline">@sintanrhdy</a></p>
+            <p><strong>Twitter:</strong> <a href="https://twitter.com/flowriseay" target="_blank" class="text-primary text-decoration-underline">@flowriseay</a></p>
           </div>
         </div>
       </div>
     </div>
-  </div> <!-- .row -->
-</div> <!-- .container -->
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>

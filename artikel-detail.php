@@ -44,13 +44,17 @@ if ($article) {
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #f3e9fc;
+      background-color: rgb(40, 72, 52);
     }
     .navbar {
-      background-color: #6f42c1;
+      background-color: rgb(230, 240, 239);
     }
     .navbar-brand, .nav-link {
-      color: white !important;
+      color: grey !important;
+      font-weight: 500;
+    }
+    .navbar-brand {
+      font-weight: 700;
     }
     .content-container {
       padding: 40px 0;
@@ -59,14 +63,15 @@ if ($article) {
       background: white;
       padding: 30px;
       border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
     }
     .article-img {
       width: 100%;
-      height: 450px;
+      height: auto;
       object-fit: cover;
       border-radius: 10px;
       margin-bottom: 20px;
+      max-height: 400px;
     }
     article {
         font-family: 'Arial', sans-serif;
@@ -104,7 +109,7 @@ if ($article) {
       background: white;
       padding: 25px;
       border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
     }
     .sidebar h5 {
       font-weight: 600;
@@ -124,8 +129,8 @@ if ($article) {
       margin-bottom: 10px;
     }
     footer {
-      background-color: #6f42c1;
-      color: white;
+      background-color: rgb(230, 240, 239);
+      color: grey;
       text-align: center;
       padding: 15px;
       margin-top: 60px;
@@ -152,7 +157,7 @@ if ($article) {
       }
 
       .navbar-nav .nav-link {
-        color: #6f42c1 !important;
+        color: rgb(230, 240, 239)!important;
         padding: 8px 0;
         font-weight: 500;
         white-space: nowrap;
